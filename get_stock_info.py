@@ -8,8 +8,7 @@ from datetime import date, datetime, timedelta
 
 client = MongoClient('mongodb://localhost:27017')
 db = client['stock_db']
-collection = db['Items']
-collection2 = db['Items_Info']
+collection = db['Items_Info']
 
 today = datetime.today()
 yesterday_date =today - timedelta(days = 1)
@@ -31,8 +30,6 @@ response = requests.get(url=url,params=body)
 data = response.json()
 table = pd.DataFrame(data['response']['body']['items']['item'])
 
-Items = table[['srtnCd', 'isinCd', 'itmsNm']]
-Items_Info = table.drop(['srtnCd', 'itmsNm'], axis = 1)
-Items_Info['basDt'] =  pd.to_datetime(Items_Info['basDt'], format = '%Y%m%d')
-Items_Info_List = Items_Info.to_dict(orient = 'records')
-collection2.insert_many(Items_Info_List)
+Items_Info = table.to_dict(orient = 'records')
+collection.insert_many(Items_Info)
+client.close()
