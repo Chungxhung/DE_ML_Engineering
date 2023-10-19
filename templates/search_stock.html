@@ -1,0 +1,21 @@
+<!-- search_stock.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>주식 데이터 검색</title>
+</head>
+<body>
+    <h1>주식 데이터 검색</h1>
+    <form method="POST" action="/search">
+        <label for="symbol">주식 종목 코드:</label>
+        <input type="text" name="isinCd" id="isinCd" required>
+        <label for="start_date">시작 날짜:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        <label for="end_date">종료 날짜:</label>
+        <input type="date" id="end_date" name="end_date" required>
+        <button type="submit">검색</button>
+    </form>
+</body>
+</html>
+

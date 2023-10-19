@@ -1,0 +1,36 @@
+<!-- stock_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>주식 시세 결과</title>
+</head>
+<body>
+    <h1>주식 시세 결과</h1>
+    <p>종목 코드: {{ isinCd }}</p>
+    <p>시작 날짜: {{ start_date }}</p>
+    <p>종료 날짜: {{ end_date }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>날짜</th>
+                <th>종가</th>
+                <th>시가</th>
+		<th>고가</th>
+		<th>저가</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.basDt }}</td>
+                    <td>{{ item.clpr }}</td>
+                    <td>{{ item.mkp }}</td>
+		    <td>{{ item.hipr }}</td>
+		    <td>{{ item.lopr }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
