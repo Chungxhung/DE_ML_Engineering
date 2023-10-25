@@ -9,14 +9,14 @@
     <p>종목 코드: {{ isinCd }}</p>
     <p>시작 날짜: {{ start_date }}</p>
     <p>종료 날짜: {{ end_date }}</p>
-    <table>
+    <table border = "1" cellpadding = "5" cellspacing = "5">
         <thead>
             <tr>
                 <th>날짜</th>
                 <th>종가</th>
                 <th>시가</th>
-		<th>고가</th>
-		<th>저가</th>
+                <th>고가</th>
+                <th>저가</th>
             </tr>
         </thead>
         <tbody>
@@ -25,12 +25,53 @@
                     <td>{{ item.basDt }}</td>
                     <td>{{ item.clpr }}</td>
                     <td>{{ item.mkp }}</td>
-		    <td>{{ item.hipr }}</td>
-		    <td>{{ item.lopr }}</td>
+                    <td>{{ item.hipr }}</td>
+                    <td>{{ item.lopr }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <h2> 종가 그래프</h2>
+    <div style="width: 80%; margin: auto;">
+        <canvas id="stockChart" width = "800" height = "400"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var basDt = {{ dates | tojson }};
+        var clpr = {{ values | tojson }};
+
+        var ctx = document.getElementById('stockChart').getContext('2d');
+        var stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: basDt,
+                datasets: [{
+                    label: '주식 가격',
+                    data: clpr,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '날짜'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '주식 가격'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
-
